@@ -1,6 +1,6 @@
 import 'package:ai_chat/core/utils/constatnts.dart';
-import 'package:ai_chat/on_boarding/widgets/header_section.dart';
-import 'package:ai_chat/on_boarding/widgets/on_boarding_button.dart';
+import 'package:ai_chat/featuers/on_boarding/widgets/header_section.dart';
+import 'package:ai_chat/featuers/on_boarding/widgets/on_boarding_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

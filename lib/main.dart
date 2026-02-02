@@ -1,5 +1,5 @@
 import 'package:ai_chat/core/utils/app_colors.dart';
-import 'package:ai_chat/on_boarding/views/on_boarding_view.dart';
+import 'package:ai_chat/featuers/on_boarding/views/on_boarding_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

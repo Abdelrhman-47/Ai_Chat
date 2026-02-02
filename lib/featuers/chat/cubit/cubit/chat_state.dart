@@ -10,7 +10,12 @@ abstract class ChatState extends Equatable {
 
 class ChatInitial extends ChatState {}
 
-class ChatLoading extends ChatState {}
+class ChatLoading extends ChatState {
+  final List<MessageModel> oldMessages;
+  const ChatLoading(this.oldMessages);
+  @override
+  List<Object?> get props => [oldMessages];
+}
 
 class ChatSuccess extends ChatState {
   final List<MessageModel> messages;

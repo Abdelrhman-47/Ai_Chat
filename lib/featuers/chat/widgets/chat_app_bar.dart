@@ -21,7 +21,10 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Row(
             children: [
               IconButton(
-                icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: AppColors.textPrimary,
+                ),
                 onPressed: () => Navigator.of(context).pop(),
               ),
 
@@ -41,7 +44,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
 
               const SizedBox(width: 12),
 
-               Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -57,7 +60,11 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                     SizedBox(height: 2),
                     Row(
                       children: [
-                        Icon(Icons.circle, size: 10.sp, color: Color(0xFF3ABF38)),
+                        Icon(
+                          Icons.circle,
+                          size: 10.sp,
+                          color: Color(0xFF3ABF38),
+                        ),
                         SizedBox(width: 6.w),
                         Text(
                           'Online',

@@ -1,4 +1,4 @@
-
+import 'package:ai_chat/core/utils/sensetive.dart';
 import 'package:dio/dio.dart';
 
 class DioClient {
@@ -6,7 +6,7 @@ class DioClient {
     BaseOptions(
       baseUrl: 'https://generativelanguage.googleapis.com/v1beta/models/',
       headers: {
-        'x-goog-api-key': 'AIzaSyCeUraaZZ_yFeV9y8wtxKS6J_-T6pGyKrQ',
+        'x-goog-api-key': Sensetive.api_key,
         'Content-Type': 'application/json',
       },
     ),
@@ -16,8 +16,6 @@ class DioClient {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-         
-
           print('➡️ Request to: ${options.uri}');
           print('Headers: ${options.headers}');
           return handler.next(options);

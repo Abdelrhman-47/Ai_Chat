@@ -18,7 +18,9 @@ class ChatRepositoryImpl implements ChatRepository {
 
     return result.fold(
       (failure) => left(failure),
-      (messageModel) => right(MessageModel(text: messageModel.text)),
+      (messageModel) => right(MessageModel(text: messageModel.text,
+          sender: TypeOfSender.ai,
+)),
     );
   }
 }

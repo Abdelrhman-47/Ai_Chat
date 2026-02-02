@@ -9,25 +9,31 @@ class ChatCubit extends Cubit<ChatState> {
 
   ChatCubit({required this.chatRepository}) : super(ChatInitial());
 
-  final List<MessageModel> _messages = [];
+    final List<MessageModel> _messages = [];
 
   Future<void> sendMessage(String text) async {
-    // 1️⃣ أضف رسالة اليوزر فورًا
-    _messages.add(MessageModel(text: text));
-    emit(ChatSuccess(List.from(_messages)));
+      print('1️⃣ User sent: $text');
 
-    // 2️⃣ Loading (اختياري لو عايز typing indicator)
+    _messages.add(MessageModel(text: text, sender: TypeOfSender.user));
+    emit(ChatSuccess(List.from(_messages)));
+  print('2️⃣ Messages after user: ${_messages.length}');
+
     emit(ChatLoading());
 
-    // 3️⃣ Call API
     final result = await chatRepository.sendMessage(text);
+      print('3️⃣ API Response: $result');
+
 
     result.fold(
       (failure) {
+            print('❌ Failure happened: $failure');
+
         emit(ChatError(failure.message));
       },
       (aiMessage) {
         _messages.add(aiMessage);
+          print('4️⃣ Messages after ai: ${_messages.length}');
+
         emit(ChatSuccess(List.from(_messages)));
       },
     );

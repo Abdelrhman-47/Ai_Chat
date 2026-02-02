@@ -27,7 +27,7 @@ class RemoteDataSource {
         body,
       );
 
-      return right(MessageModel.fromJson(response.data));
+      return right(MessageModel.fromJson(response));
     } on DioException catch (e) {
       return left(
         ServerFailure(

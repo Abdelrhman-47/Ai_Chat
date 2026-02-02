@@ -1,6 +1,9 @@
 
+import 'dart:developer';
+
 import 'package:ai_chat/featuers/chat/cubit/cubit/chat_cubit.dart';
 import 'package:ai_chat/featuers/chat/cubit/cubit/chat_state.dart';
+import 'package:ai_chat/featuers/chat/data/model/message_model.dart';
 import 'package:ai_chat/featuers/chat/widgets/chat_app_bar.dart';
 import 'package:ai_chat/featuers/chat/widgets/message_item.dart';
 import 'package:flutter/material.dart';
@@ -100,11 +103,18 @@ class _ChatPageState extends State<ChatPage> {
           final msg = state.messages[index];
           return ChatBubble(
             text: msg.text,
-            isUser:true,
+            isUser:msg.sender == TypeOfSender.user? true : false,
           );
         },
       );
+    }if (state is ChatLoading) {
+      return const Center(child: CircularProgressIndicator());
     }
+    if (state is ChatError) {
+      log(state.message);
+      return Center(child: Text(state.message));
+    }
+    
     return const SizedBox();
   },
       )

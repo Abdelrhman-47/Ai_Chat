@@ -22,8 +22,7 @@ class FailureHandler {
         return ServerFailure('SSL certificate verification failed');
       
       case DioExceptionType.unknown:
-      default:
-        return UnknownFailure('Unexpected error occurred: ${e.message}');
+      return UnknownFailure('Unexpected error occurred: ${e.message}');
     }
   }
 

@@ -13,9 +13,9 @@ class ChatCubit extends Cubit<ChatState> {
   final List<MessageModel> _messages = [];
 
   Future<void> sendMessage(String text) async {
-    _messages.add(MessageModel(text: text, sender: TypeOfSender.user));
-    emit(ChatSuccess(List.from(_messages)));
-    emit(ChatLoading(List.from(_messages)));
+    _messages.add(MessageModel(text: text));
+    emit(ChatSuccess(_messages));
+    emit(ChatLoading(_messages));
 
     final result = await chatRepository.sendMessage(text);
 
@@ -25,7 +25,7 @@ class ChatCubit extends Cubit<ChatState> {
       },
       (aiMessage) {
         _messages.add(aiMessage);
-        emit(ChatSuccess(List.from(_messages)));
+        emit(ChatSuccess(_messages));
       },
     );
   }

@@ -18,7 +18,7 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
 
-   final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   void _scrollToBottom() {
     if (_scrollController.hasClients) {

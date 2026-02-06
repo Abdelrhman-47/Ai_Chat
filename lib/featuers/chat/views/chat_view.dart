@@ -17,7 +17,6 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-
   final ScrollController _scrollController = ScrollController();
 
   void _scrollToBottom() {
@@ -36,51 +35,65 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomSection(onSend:_scrollToBottom,),
-      appBar: const ChatAppBar(),
-      body: BlocBuilder<ChatCubit, ChatState>(
-        builder: (context, state) {
-          if (state is ChatSuccess || state is ChatLoading) {
-            final messages = state is ChatSuccess
-                ? state.messages
-                : (state as ChatLoading).oldMessages;
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: const ChatAppBar(),
+        resizeToAvoidBottomInset: true,
+        body: Column(
+          children: [
+            Expanded(
+              child: BlocBuilder<ChatCubit, ChatState>(
+                builder: (context, state) {
+                  late final List<MessageModel> messages;
+                  final bool isLoading = state is ChatLoading;
 
-            final isLoading = state is ChatLoading;
+                  if (state is ChatSuccess) {
+                    messages = state.messages;
+                  } else if (state is ChatLoading) {
+                    messages = state.oldMessages;
+                  } else if (state is ChatError) {
+                    messages = state.messages;
+                  } else {
+                    messages = [];
+                  }
 
-            return ListView.builder(
-              reverse: true,
-              controller: _scrollController,
-              padding: const EdgeInsets.only(bottom: 10, top: 10),
-              // If loading, add 1 for the typing indicator
-              itemCount: messages.length + (isLoading ? 1 : 0),
-              itemBuilder: (context, index) {
-                if (isLoading && index == 0) {
-                  return const Align(
-                    alignment: Alignment.centerLeft,
-                    child: TypingIndicator(),
+                  return ListView.builder(
+                    reverse: true,
+                    controller: _scrollController,
+                    padding: const EdgeInsets.only(bottom: 10, top: 10),
+                    itemCount: messages.length + (isLoading ? 1 : 0),
+                    itemBuilder: (context, index) {
+                      if (isLoading && index == 0) {
+                        return const Align(
+                          alignment: Alignment.centerLeft,
+                          child: TypingIndicator(),
+                        );
+                      }
+
+                      final itemIndex = isLoading ? index - 1 : index;
+                      final msg = messages[messages.length - 1 - itemIndex];
+
+                      return ChatBubble(
+                        text: msg.text,
+                        isUser: msg.sender == TypeOfSender.user,
+                        isError: msg.isError,
+                        onResend: msg.isError
+                            ? () {
+                                context.read<ChatCubit>().retryMessage(msg);
+                                _scrollToBottom();
+                              }
+                            : null,
+                      );
+                    },
                   );
-                }
+                },
+              ),
+            ),
 
-                final itemIndex = isLoading ? index - 1 : index;
-                final msg = messages[messages.length - 1 - itemIndex];
-
-                return ChatBubble(
-                  text: msg.text,
-                  isUser: msg.sender == TypeOfSender.user,
-                  isError: msg.isError,
-                );
-              },
-            );
-          }
-
-          if (state is ChatError) {
-            log(state.message);
-            return Center(child: Text(state.message));
-          }
-
-          return const SizedBox();
-        },
+            BottomSection(onSend: _scrollToBottom),
+          ],
+        ),
       ),
     );
   }

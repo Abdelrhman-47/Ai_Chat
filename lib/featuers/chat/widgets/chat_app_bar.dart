@@ -12,7 +12,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: Color(0xFF3A3A3A), width: 1)),
+        border: Border(bottom: BorderSide(color: Color(0xFF3A3A3A), width: .6)),
       ),
       child: SafeArea(
         bottom: false,
@@ -29,8 +29,8 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
 
               Container(
-                width: 40,
-                height: 40,
+                width: 40.w,
+                height: 40.h,
                 decoration: BoxDecoration(
                   color: AppColors.primaryColor,
                   shape: BoxShape.circle,
@@ -42,7 +42,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
 
-              const SizedBox(width: 12),
+               SizedBox(width: 12.w),
 
               Expanded(
                 child: Column(
@@ -52,7 +52,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                     Text(
                       'AI Chat',
                       style: TextStyle(
-                        fontSize: 16.sp,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
                         color: AppColors.primaryColor,
                       ),
@@ -62,14 +62,14 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                       children: [
                         Icon(
                           Icons.circle,
-                          size: 10.sp,
+                          size: 12.sp,
                           color: Color(0xFF3ABF38),
                         ),
                         SizedBox(width: 6.w),
                         Text(
                           'Online',
                           style: TextStyle(
-                            fontSize: 14.sp,
+                            fontSize: 12.sp,
                             color: Color(0xFF3ABF38),
                           ),
                         ),

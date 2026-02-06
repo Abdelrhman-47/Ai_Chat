@@ -14,19 +14,38 @@ class ChatCubit extends Cubit<ChatState> {
 
   Future<void> sendMessage(String text) async {
     _messages.add(MessageModel(text: text));
-    emit(ChatSuccess(_messages));
+  //  emit(ChatSuccess(_messages));
     emit(ChatLoading(_messages));
 
     final result = await chatRepository.sendMessage(text);
 
     result.fold(
       (failure) {
-        emit(ChatError(failure.message));
+        final userMessage = MessageModel(text: text);
+        _messages.add(userMessage);
+        final index = _messages.indexOf(userMessage);
+        _messages[index] = userMessage.copyWith(
+          isError: true,
+          text: "${userMessage.text}\n\nTry again",
+        );
+        emit(ChatSuccess(List.from(_messages)));
+        emit(ChatError(List.from(_messages)));
       },
       (aiMessage) {
         _messages.add(aiMessage);
         emit(ChatSuccess(_messages));
       },
     );
+
+
   }
+    void retryMessage(MessageModel message) {
+  final cleanText = message.text.replaceAll("\n\nTry again", "");
+
+  final index = _messages.indexOf(message);
+  _messages[index] = MessageModel(text: cleanText);
+
+  emit(ChatSuccess(List.from(_messages)));
+  sendMessage(cleanText);
+}
 }

@@ -14,7 +14,7 @@ class OnBoardingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.of(context).push(
+      onTap: () => Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (_) {
             return BlocProvider(

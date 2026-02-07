@@ -28,7 +28,6 @@ class ChatCubit extends Cubit<ChatState> {
           isError: true,
           text: "${userMessage.text}\n\nTry again",
         );
-        emit(ChatSuccess(List.from(_messages)));
         emit(ChatError(List.from(_messages)));
       },
       (aiMessage) {
@@ -41,9 +40,10 @@ class ChatCubit extends Cubit<ChatState> {
   }
     void retryMessage(MessageModel message) {
   final cleanText = message.text.replaceAll("\n\nTry again", "");
-
   final index = _messages.indexOf(message);
+
   _messages[index] = MessageModel(text: cleanText);
+  
 
   emit(ChatSuccess(List.from(_messages)));
   sendMessage(cleanText);

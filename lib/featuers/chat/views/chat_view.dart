@@ -18,6 +18,8 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   final ScrollController _scrollController = ScrollController();
+  List<MessageModel> _messages = [];
+  bool _isLoading = false;
 
   void _scrollToBottom() {
     if (_scrollController.hasClients) {
@@ -43,36 +45,35 @@ class _ChatPageState extends State<ChatPage> {
         body: Column(
           children: [
             Expanded(
-              child: BlocBuilder<ChatCubit, ChatState>(
-                builder: (context, state) {
-                  late final List<MessageModel> messages;
-                  final bool isLoading = state is ChatLoading;
-
+              child: BlocConsumer<ChatCubit, ChatState>(
+                listener: (context, state) {
                   if (state is ChatSuccess) {
-                    messages = state.messages;
+                    _messages = state.messages;
+                    _isLoading = false;
                   } else if (state is ChatLoading) {
-                    messages = state.oldMessages;
+                    _messages = state.oldMessages;
+                    _isLoading = true;
                   } else if (state is ChatError) {
-                    messages = state.messages;
-                  } else {
-                    messages = [];
+                    _messages = state.messages;
+                    _isLoading = false;
                   }
-
+                },
+                builder: (context, state) {
                   return ListView.builder(
                     reverse: true,
                     controller: _scrollController,
                     padding: const EdgeInsets.only(bottom: 10, top: 10),
-                    itemCount: messages.length + (isLoading ? 1 : 0),
+                    itemCount: _messages.length + (_isLoading ? 1 : 0),
                     itemBuilder: (context, index) {
-                      if (isLoading && index == 0) {
+                      if (_isLoading && index == 0) {
                         return const Align(
                           alignment: Alignment.centerLeft,
                           child: TypingIndicator(),
                         );
                       }
 
-                      final itemIndex = isLoading ? index - 1 : index;
-                      final msg = messages[messages.length - 1 - itemIndex];
+                      final itemIndex = _isLoading ? index - 1 : index;
+                      final msg = _messages[_messages.length - 1 - itemIndex];
 
                       return ChatBubble(
                         text: msg.text,

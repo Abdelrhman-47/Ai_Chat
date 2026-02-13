@@ -4,10 +4,10 @@ import 'package:ai_chat/featuers/chat/data/model/message_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-class RemoteDataSource {
+class GeminiService {
   final ApiServices _apiServices;
 
-  RemoteDataSource({required ApiServices apiServices})
+  GeminiService({required ApiServices apiServices})
     : _apiServices = apiServices;
 
   Future<Either<Failure, MessageModel>> sendMessage(String message) async {

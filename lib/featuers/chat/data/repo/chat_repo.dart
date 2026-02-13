@@ -1,4 +1,4 @@
-import 'package:ai_chat/featuers/chat/data/data_source/remote_data_source.dart';
+import 'package:ai_chat/featuers/chat/data/services/remote_data_source.dart';
 import 'package:ai_chat/featuers/chat/data/model/message_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ai_chat/core/networking/failuer.dart';
@@ -8,13 +8,13 @@ abstract class ChatRepository {
 }
 
 class ChatRepositoryImpl implements ChatRepository {
-  final RemoteDataSource remoteDataSource;
+  final GeminiService geminiServices;
 
-  ChatRepositoryImpl({required this.remoteDataSource});
+  ChatRepositoryImpl({required this.geminiServices});
 
   @override
   Future<Either<Failure, MessageModel>> sendMessage(String message) async {
-    final result = await remoteDataSource.sendMessage(message);
+    final result = await geminiServices.sendMessage(message);
 
     return result.fold(
       (failure) => left(failure),

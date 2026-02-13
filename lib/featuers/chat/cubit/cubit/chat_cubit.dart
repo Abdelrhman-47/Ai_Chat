@@ -14,7 +14,6 @@ class ChatCubit extends Cubit<ChatState> {
 
   Future<void> sendMessage(String text) async {
     _messages.add(MessageModel(text: text));
-  //  emit(ChatSuccess(_messages));
     emit(ChatLoading(_messages));
 
     final result = await chatRepository.sendMessage(text);

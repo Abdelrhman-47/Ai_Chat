@@ -1,26 +1,21 @@
-import 'dart:developer';
-import 'package:ai_chat/featuers/chat/cubit/cubit/chat_cubit.dart';
-import 'package:ai_chat/featuers/chat/cubit/cubit/chat_state.dart';
+import 'package:ai_chat/featuers/chat/ui/cubit/cubit/chat_cubit.dart';
+import 'package:ai_chat/featuers/chat/ui/cubit/cubit/chat_state.dart';
 import 'package:ai_chat/featuers/chat/data/model/message_model.dart';
-import 'package:ai_chat/featuers/chat/widgets/bottom_section.dart';
-import 'package:ai_chat/featuers/chat/widgets/chat_app_bar.dart';
-import 'package:ai_chat/featuers/chat/widgets/message_item.dart';
-import 'package:ai_chat/featuers/chat/widgets/typing_indicator.dart';
+import 'package:ai_chat/featuers/chat/ui/views/widgets/bottom_section.dart';
+import 'package:ai_chat/featuers/chat/ui/views/widgets/chat_app_bar.dart';
+import 'package:ai_chat/featuers/chat/ui/views/widgets/message_item.dart';
+import 'package:ai_chat/featuers/chat/ui/views/widgets/typing_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
-
   @override
   State<ChatPage> createState() => _ChatPageState();
 }
-
 class _ChatPageState extends State<ChatPage> {
   final ScrollController _scrollController = ScrollController();
   List<MessageModel> _messages = [];
   bool _isLoading = false;
-
   void _scrollToBottom() {
     if (_scrollController.hasClients) {
       Future.delayed(const Duration(milliseconds: 300), () {
@@ -97,5 +92,4 @@ class _ChatPageState extends State<ChatPage> {
         ),
       ),
     );
-  }
-}
+  }}

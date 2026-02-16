@@ -7,10 +7,10 @@ abstract class ChatRepository {
   Future<Either<Failure, MessageModel>> sendMessage(String message);
 }
 
-class ChatRepositoryImpl implements ChatRepository {
+class GeminiRepoImpl implements ChatRepository {
   final GeminiService geminiServices;
 
-  ChatRepositoryImpl({required this.geminiServices});
+  GeminiRepoImpl({required this.geminiServices});
 
   @override
   Future<Either<Failure, MessageModel>> sendMessage(String message) async {

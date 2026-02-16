@@ -1,8 +1,8 @@
 import 'package:ai_chat/core/utils/app_colors.dart';
 import 'package:ai_chat/core/utils/constatnts.dart';
 import 'package:ai_chat/core/utils/di_helper.dart';
-import 'package:ai_chat/featuers/chat/cubit/cubit/chat_cubit.dart';
-import 'package:ai_chat/featuers/chat/views/chat_view.dart';
+import 'package:ai_chat/featuers/chat/ui/cubit/cubit/chat_cubit.dart';
+import 'package:ai_chat/featuers/chat/ui/views/chat_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

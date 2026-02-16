@@ -23,7 +23,7 @@ class GeminiService {
 
     try {
       final response = await _apiServices.post(
-        "gemini-2.5-flash-lite:generateContent",
+        "gemini-3-flash-preview:generateContent",
         body,
       );
 

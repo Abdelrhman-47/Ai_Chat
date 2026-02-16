@@ -1,3 +1,4 @@
+import 'package:ai_chat/featuers/chat/data/model/message_model.dart';
 import 'package:ai_chat/featuers/chat/ui/cubit/cubit/chat_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,8 +8,8 @@ import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 class BottomSection extends StatefulWidget {
-  const BottomSection({super.key, required this.onSend});
-  final VoidCallback onSend;
+const BottomSection({super.key, required this.onSend});
+  final Function (MessageModel messageUser) onSend;
 
   @override
   State<BottomSection> createState() => _BottomSectionState();
@@ -114,8 +115,9 @@ void _startListening() async {
                   BlocProvider.of<ChatCubit>(
                     context,
                   ).sendMessage(_messageController.text);
-                  _messageController.clear();
-                  widget.onSend();
+                  widget.onSend(MessageModel(text: _messageController.text, sender: TypeOfSender.user));
+                                    _messageController.clear();
+
                 }
                 _focusNode.unfocus();
               },

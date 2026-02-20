@@ -1,5 +1,5 @@
-import 'package:ai_chat/featuers/chat/data/services/remote_data_source.dart';
 import 'package:ai_chat/featuers/chat/data/model/message_model.dart';
+import 'package:ai_chat/featuers/chat/data/services/gemini_service.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ai_chat/core/networking/failuer.dart';
 

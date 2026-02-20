@@ -17,19 +17,6 @@ class _ChatBodyState extends State<ChatBody> {
   final ScrollController _scrollController = ScrollController();
   List<MessageModel> _messages = [];
   bool _isLoading = false;
-  void _scrollToBottom() {
-    if (_scrollController.hasClients) {
-      Future.delayed(const Duration(milliseconds: 300), () {
-        if (_scrollController.hasClients) {
-          _scrollController.animateTo(
-            _scrollController.position.minScrollExtent,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeOut,
-          );
-        }
-      });
-    }
-  }
 
   @override
   void dispose() {
@@ -85,9 +72,7 @@ class _ChatBodyState extends State<ChatBody> {
             ),
             BottomSection(
               onSend: (MessageModel messageUser) {
-                setState(() {
                   _messages.add(messageUser);
-                });
                 _scrollToBottom();
               },
             ),
@@ -95,5 +80,18 @@ class _ChatBodyState extends State<ChatBody> {
         );
       },
     );
+  }
+    void _scrollToBottom() {
+    if (_scrollController.hasClients) {
+      Future.delayed(const Duration(milliseconds: 300), () {
+        if (_scrollController.hasClients) {
+          _scrollController.animateTo(
+            _scrollController.position.minScrollExtent,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+          );
+        }
+      });
+    }
   }
 }

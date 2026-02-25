@@ -15,7 +15,7 @@ class ChatBody extends StatefulWidget {
 
 class _ChatBodyState extends State<ChatBody> {
   final ScrollController _scrollController = ScrollController();
-  List<MessageModel> _messages = [];
+ final List<MessageModel> _messages = [];
   bool _isLoading = false;
 
   @override
